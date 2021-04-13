@@ -1,0 +1,8 @@
+{
+    "files.associations": {
+        "iostream": "cpp"
+    },
+    "files.encoding": "gbk",
+    "files.autoGuessEncoding": true,
+    "workbench.editor.enablePreviewFromCodeNavigation": true
+}
