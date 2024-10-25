@@ -1,4 +1,4 @@
-//dfs,�����ɱ��01������һ�����Ե㳬ʱ����֦δ�� 
+//dfs,容量可变的01背包，一个测试点超时，剪枝未果 
 #include<cstdio>
 #include<vector>
 #include<algorithm>
