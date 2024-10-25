@@ -1,74 +1,69 @@
+//十位数，最高36进制，转换为十进制48631067547955363834-1，记作Maxn，在long long范围内，
+//但是在找对应进制匹配时可能溢出，如Maxn来匹配111的进制时，radix在2~Maxn+1范围内二分查找，
+//tempsum以一较大数为radix时可能溢出，事实上在匹配三位数时，当计算至pow(Maxn,2)时已经超出
+//long long正数的范围，为负的long long数，因此需要判断radix较大，更改mid值
 #include<cstdio>
-#include<vector>
 #include<string>
-#include<iostream>
 using namespace std;
-vector<int> cmp1,cmp2;
-string str1,str2;
-int tag,radix;
-typedef long long LL;
 
-vector<int> cal(string str,int radix){
-	LL temp=0;
-	for(int i=0;i<str.size();i++){
-		char ch=str[i];
-		int n=0;
-		if(ch<='9')
-			n=ch-'0';
-		else
-			n=ch-'a'+10;
-		temp=temp*radix+n;
-	}
-	vector<int> vec;
-	while(temp!=0){
-		vec.push_back(temp%36);
-		temp/=36;
-	}
-	return vec;
+typedef long long ll;
+
+char a[11],b[11];
+ll flag,radix;
+
+ll todigi(char ch){
+	if(ch>='0'&&ch<='9') return ch-'0';
+	else return ch-'a'+10;
 }
 
-bool isequl(vector<int> ve1,vector<int> ve2){
-	if(ve1.size()!=ve2.size()) return false;
-	for(int i=ve1.size()-1;i>=0;i--){
-		if(ve1[i]!=ve2[i])
-			return false;
+ll todeci(string str,ll radi){
+	ll sum=0;
+	int k;
+	for(int i=0;i<str.size();i++){
+		k=todigi(str[i]);
+		sum=sum*radi+k;
+		if(sum<0) return -1;    //此数超过long long正数范围，比题目给出的最大值大，radix设置过大。 
 	}
-	return true;
+	return sum;
 }
 
 int main(){
-	cin>>str1>>str2;
-	scanf("%d%d",&tag,&radix);
-	if(tag==1){
-		cmp1=cal(str1,radix);
-		if(str2.size()<cmp1.size()){
-				printf("Impossible\n");
-				return 0;
-			}
-		for(int i=2;i<=36;i++){
-			cmp2=cal(str2,i);
-			if(isequl(cmp1,cmp2)){
-				printf("%d",i);
-				return 0;
-			}
-		}
-		printf("Impossible\n");
+	scanf("%s%s%ld%ld",a,b,&flag,&radix);
+	ll aa;
+	string temp;
+	if(flag==1){
+		aa=todeci(a,radix);
+		temp=b;
 	}
-	if(tag==2){
-		cmp2=cal(str2,radix);
-		if(str1.size()<cmp2.size()){
-				printf("Impossible\n");
-				return 0;
-			}
-		for(int i=2;i<=36;i++){
-			cmp1=cal(str1,i);
-			if(isequl(cmp1,cmp2)){
-				printf("%d",i);
-				return 0;
-			}
-		}
-		printf("Impossible\n");
+	else{
+		aa=todeci(b,radix);
+		temp=a;
+	}                           //aa最大36^11-1,在long long正数范围内 
+	ll high=aa+1,low;
+	char h='0';
+	for(int i=0;i<temp.size();i++){
+		if(temp[i]>h) h=temp[i];
 	}
-	
+	low=todigi(h)+1;
+	ll mid;
+	ll tempsum;
+	if(temp.size()==1){       //在一位数字匹配时radix不唯一，须单独考虑 
+		if(todigi(temp[0])!=aa) printf("Impossible");
+		else printf("%lld",todigi(temp[0])+1);
+		return 0;
+	}
+	while(high>=low){
+		mid=(high+low)/2;
+		tempsum=todeci(temp,mid);
+		if(tempsum==aa) break;
+		else if(tempsum==-1||tempsum>aa){ //本题关键，判断radix过大，包括溢出 
+			high=mid-1;
+		}
+		else{
+			low=mid+1;
+		}
+	}
+	if(low>high) printf("Impossible");
+	else printf("%lld",mid);
 	return 0;
 } 

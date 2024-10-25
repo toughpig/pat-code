@@ -1,54 +1,56 @@
+//多项式相加，指数Nk<=1000,可开数组
+//考虑到如果指数为int范围的话，使用pair映射
 #include<cstdio>
+#include<map>
+#include<algorithm>
 #include<vector>
-#include<stdlib.h>
 using namespace std;
 
-struct node{
-	int e;
-	double a;
-};
+#define mp make_pair
+#define ff first
+#define ss second
 
-vector<struct node> po[3];
+vector<pair<int,double> > a,b,ans;
+
+bool cmp(pair<int,double> aa,pair<int,double> bb){
+	return aa.ff>bb.ff;
+}
 
 int main(){
-	int A,B;
-	int E;
-	double C;
-	node* nn=(node*)malloc(sizeof(node));
-	scanf("%d",&A);
-	for(int i=0;i<A;i++){
-		scanf("%d %lf",&nn->e,&nn->a);
-		po[0].push_back(*nn);
+	int k,p;
+	double q;
+	scanf("%d",&k);
+	for(int i=0;i<k;i++){
+		scanf("%d%lf",&p,&q);
+		a.push_back(mp(p,q));
 	}
-	scanf("%d",&B);
-	for(int i=0;i<B;i++){
-//		node *nn=(node*)malloc(sizeof(node));
-		scanf("%d %lf",&nn->e,&nn->a);
-		po[1].push_back(*nn);
+	scanf("%d",&k);
+	for(int i=0;i<k;i++){
+		scanf("%d%lf",&p,&q);
+		b.push_back(mp(p,q));
 	}
-	vector<node>::iterator it0=po[0].begin();
-	vector<node>::iterator it1=po[1].begin();
-	node *newn=(node*)malloc(sizeof(node));
-	while(it0!=po[0].end()&&it1!=po[1].end()){
-		if((*it0).e==(*it1).e){
-			newn->e=(*it0).e;
-			newn->a=(*it0).a+(*it1).a;
-			if(newn->a!=0)
-			po[2].push_back(*newn);
-			it0++;
-			it1++;
+	sort(a.begin(),a.end(),cmp);
+	sort(b.begin(),b.end(),cmp);
+	int i=0,j=0;
+	while(i<a.size()&&j<b.size()){
+		if(a[i].ff==b[j].ff){
+			if(a[i].ss+b[j].ss!=0)
+				ans.push_back(mp(a[i].ff,a[i].ss+b[j].ss));
+			i++;
+			j++;
+		}
+		else if(a[i].ff>b[j].ff){
+			ans.push_back(a[i++]);
 		}
 		else{
-			(*it0).e>(*it1).e?po[2].push_back(*(it0++)):po[2].push_back(*(it1++));
+			ans.push_back(b[j++]);
 		}
 	}
-	while(it0!=po[0].end())
-		po[2].push_back(*(it0++));
-	while(it1!=po[1].end())
-		po[2].push_back(*(it1++));
-	printf("%d",po[2].size());
-	for(int j=0;j<=po[2].size()-1;j++){
-		printf(" %d %.1lf",po[2][j].e,po[2][j].a);
+	while(i<a.size()) ans.push_back(a[i++]);
+	while(j<b.size()) ans.push_back(b[j++]);
+	printf("%d",ans.size());
+	for(int h=0;h<ans.size();h++){
+		printf(" %d %.1lf",ans[h].ff,ans[h].ss);
 	}
 	return 0;
 }

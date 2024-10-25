@@ -1,66 +1,39 @@
+//直接打表覆盖
 #include<cstdio>
-#include<iostream>
-#include<vector>
-#include<algorithm>
-#include<stdlib.h>
-using namespace std;
-vector<int> ans;
-int num[1000];
-bool has[100000]={false};
-void test(int y){
-  while(y!=1){
-    if(y%2==1){
-      y=3*y+1;
-      if(has[y]==true)
-      return;
-      has[y]=true;
-    }
-    else{
-      y/=2;
-      if(has[y]==true)
-      return;
-      if(y!=1)
-      has[y]=true;
-    }
-  }
-}
-bool cmp(int a,int b){
-  return a>b;
-}
+
+const int maxn=105;
+int n;
+bool cnted[maxn]={false};
+bool ans[maxn]={false};//记录未被覆盖的数 
+int cnt=0;
+int temp;
 
 int main(){
-//  for(int i=0;i<1000;i++){
-//  	num[i]=0x3f3f3f3f;
-//  }
-  int N;
-  scanf("%d",&N);
-  int k=0;
-  int n=N;
-  while(n--){
-    int temp;
-    scanf("%d",&temp);
-    if(has[temp]==false){
-    num[k++]=temp;
-    test(temp);
-    }
-  }
-  for(int i=0;i<N;i++){
-  	if(has[num[i]]==false){
-  		ans.push_back(num[i]);
-	  }
-  }
-  sort(ans.begin(),ans.end(),cmp);
-  int i;
-//  printf("%d",ans.size());
-  for(i=0;i<ans.size()-1;i++){
-  	if(ans[i]!=0)
-    printf("%d ",ans[i]);
-  }
-  if(ans[i]!=0)
-  printf("%d",ans[i]);
-  
-  
-  
-  
-  return 0;
-}
+	scanf("%d",&n);
+	for(int i=0;i<n;i++){
+		scanf("%d",&temp);
+		if(cnted[temp]==false){
+			ans[temp]=true;
+			while(temp!=1){
+				if(temp%2) temp=(temp*3+1)/2;
+				else temp/=2;
+				if(temp>=maxn) continue;  //防止数组越界，并且越界的数没用 
+				cnted[temp]=true;
+				if(ans[temp]==true){
+					ans[temp]=false;
+					break;   //temp已经算过 
+				}
+			}
+		}
+	}
+	for(int i=maxn-1;i>=2;i--){
+		if(ans[i]==true&&cnt==0){
+			printf("%d",i);
+			cnt++;
+		}
+		else if(ans[i]){
+			printf(" %d",i);
+		}
+	}
+	return 0;
+} 

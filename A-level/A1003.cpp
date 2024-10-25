@@ -1,100 +1,65 @@
+//单源最短路dijkstra,输出最短路径数目，以及第二标尺路径点权之和
 #include<cstdio>
-//#include<set>
-#include<iostream>
-#include<queue>
+#include<algorithm>
 using namespace std;
-queue<int> q;
-//set<int> s;
-const int maxn=510;
-const int inf=0x3fffffff;
-int arc[maxn][maxn];
+
+const int inf=1<<30;
+const int maxn=500;
+
 int dist[maxn];
-int a[maxn];
-vector<int> path[maxn];
-int N,R,S,E;
-int data;
-bool visited[maxn]={false};
+int arc[maxn][maxn];
+int num[maxn];  //该节点最短路条数
+bool vis[maxn];
+int gather[maxn];
+int team[maxn];
+
+int n,m,st,en,temp,a,b;
+
+void dij(int u,int v){
+	fill(dist,dist+maxn,inf);
+	fill(vis,vis+maxn,false);
+	fill(gather,gather+maxn,0);
+	fill(num,num+maxn,0);
+	dist[u]=0;
+	gather[u]=team[u];
+	num[u]=1;
+	for(int i=0;i<n;i++){
+		int k=-1,minn=inf;
+		for(int j=0;j<n;j++){
+			if(minn>dist[j]&&vis[j]==false){
+				minn=dist[j];
+				k=j;
+			}
+		}
+		if(k==-1) return;
+		vis[k]=true;
+		if(k==v) return;
+		for(int p=0;p<n;p++){
+			if(vis[p]==false&&dist[p]>dist[k]+arc[k][p]){
+				dist[p]=dist[k]+arc[k][p];
+				num[p]=num[k];
+				gather[p]=gather[k]+team[p];
+			}
+			else if(vis[p]==false&&dist[p]==dist[k]+arc[k][p]){
+				num[p]+=num[k];                                  //此处容易出错 
+				if(gather[p]<gather[k]+team[p])
+					gather[p]=gather[k]+team[p];
+			}
+		}
+		
+	}
+}
 
 int main(){
-	int k,f,c;
-	scanf("%d%d%d%d",&N,&R,&S,&E);
-	for(int i=0;i<maxn;i++){
-		dist[i]=inf;
-		for(int j=0;j<maxn;j++){
-			arc[i][j]=inf;
-		}
+	fill(arc[0],arc[0]+maxn*maxn,inf);
+	scanf("%d%d%d%d",&n,&m,&st,&en);
+	for(int i=0;i<n;i++)
+		scanf("%d",&team[i]);
+	for(int i=0;i<m;i++){
+		scanf("%d%d%d",&a,&b,&temp);
+		arc[a][b]=arc[b][a]=temp;
 	}
-	for(int i=0;i<N;i++){
-		scanf("%d",a+i);
-	}
-	for(int i=0;i<R;i++){
-		scanf("%d %d %d",&k,&f,&c);
-		arc[k][f]=c;
-		arc[f][k]=c;                         //无向图必须初始化下三角 ！！！ 
-	}
-	for(int j=0;j<N;j++){
-		dist[j]=arc[S][j];
-		path[j].push_back(S);
-	}
-	dist[S]=0;
-	visited[S]=true;
-//	s.insert(S);
-	while(visited[E]==false){
-		int min=E;
-		for(int j=0;j<N;j++){
-			if(visited[j]==false&&dist[j]<=dist[min]){
-//				visited[j]=true;
-//				s.insert(j);
-				min=j;
-			}
-		}
-		if(min==E||dist[min]==inf)
-			break;
-		visited[min]=true;
-//		s.insert(min);
-		for(int k=0;k<N;k++){
-			if(visited[k]==false&&arc[min][k]<inf&&dist[min]+arc[min][k]<dist[k]){
-				dist[k]=dist[min]+arc[min][k];
-				path[k].clear();
-				path[k].push_back(min);
-			}
-			else if(visited[k]==false&&arc[min][k]<inf&&dist[min]+arc[min][k]==dist[k])
-					path[k].push_back(min);
-				
-			
-		}
-	}
-	int cnt=0;
-	if(dist[E]<inf)
-		cnt=1;
-	int mid=E;
-// 	int m;
-	int maxnn[maxn]={0};
-	maxnn[E]=a[E];
-	q.push(mid);
-	while(!q.empty()){
-
-		mid=q.front();
-		q.pop();
-		while(mid==S&&!q.empty()){
-		  mid=q.front();
-		  q.pop();
-		}
-		if(mid==S)
-		break;
-		if(path[mid].size()>=2){
-			cnt+=path[mid].size()-1;
-		}
-		for(int i=path[mid].size()-1;i>=0;i--){
-			int temp=path[mid][i];
-			q.push(temp);
-			if(a[temp]+maxnn[mid]>maxnn[temp]){
-				maxnn[temp]=a[temp]+maxnn[mid];
-			}
-		}
-		}
-	
-
-	printf("%d %d",cnt,maxnn[S]);
+	dij(st,en);
+	printf("%d %d",num[en],gather[en]);
 	return 0;
-}
+} 
