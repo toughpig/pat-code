@@ -12,8 +12,8 @@ class Solution
 {
 public:
 
-// 783. ¶þ²æËÑË÷Ê÷½Úµã×îÐ¡¾àÀë
-// ¸øÄãÒ»¸ö¶þ²æËÑË÷Ê÷µÄ¸ù½Úµã root £¬·µ»Ø Ê÷ÖÐÈÎÒâÁ½²»Í¬½ÚµãÖµÖ®¼äµÄ×îÐ¡²îÖµ ¡£
+// 783. äºŒå‰æœç´¢æ ‘èŠ‚ç‚¹æœ€å°è·ç¦»
+// ç»™ä½ ä¸€ä¸ªäºŒå‰æœç´¢æ ‘çš„æ ¹èŠ‚ç‚¹ root ï¼Œè¿”å›ž æ ‘ä¸­ä»»æ„ä¸¤ä¸åŒèŠ‚ç‚¹å€¼ä¹‹é—´çš„æœ€å°å·®å€¼ ã€‚
     int minDiffInBST(TreeNode *root)
     {
         int ans = 0, last = -1;

@@ -7,8 +7,8 @@ using namespace std;
 class Solution {
 public:
 
-// 17. µç»°ºÅÂëµÄ×ÖÄ¸×éºÏ
-// ¸ø¶¨Ò»¸ö½ö°üº¬Êý×Ö 2-9 µÄ×Ö·û´®£¬·µ»ØËùÓÐËüÄÜ±íÊ¾µÄ×ÖÄ¸×éºÏ¡£´ð°¸¿ÉÒÔ°´ ÈÎÒâË³Ðò ·µ»Ø¡£¸ø³öÊý×Öµ½×ÖÄ¸µÄÓ³ÉäÈçÏÂ£¨Óëµç»°°´¼üÏàÍ¬£©¡£×¢Òâ 1 ²»¶ÔÓ¦ÈÎºÎ×ÖÄ¸¡£
+// 17. ç”µè¯å·ç çš„å­—æ¯ç»„åˆ
+// ç»™å®šä¸€ä¸ªä»…åŒ…å«æ•°å­— 2-9 çš„å­—ç¬¦ä¸²ï¼Œè¿”å›žæ‰€æœ‰å®ƒèƒ½è¡¨ç¤ºçš„å­—æ¯ç»„åˆã€‚ç­”æ¡ˆå¯ä»¥æŒ‰ ä»»æ„é¡ºåº è¿”å›žã€‚ç»™å‡ºæ•°å­—åˆ°å­—æ¯çš„æ˜ å°„å¦‚ä¸‹ï¼ˆä¸Žç”µè¯æŒ‰é”®ç›¸åŒï¼‰ã€‚æ³¨æ„ 1 ä¸å¯¹åº”ä»»ä½•å­—æ¯ã€‚
     vector<string> letterCombinations(string digits) {
         if(digits.size()==0) return {};
         string num[8] = {"abc","def","ghi","jkl","mno","pqrs","tuv","wxyz"};
@@ -29,10 +29,10 @@ public:
         }
     }
 
-// 22. À¨ºÅÉú³É
-// Êý×Ö n ´ú±íÉú³ÉÀ¨ºÅµÄ¶ÔÊý£¬ÇëÄãÉè¼ÆÒ»¸öº¯Êý£¬ÓÃÓÚÄÜ¹»Éú³ÉËùÓÐ¿ÉÄÜµÄ²¢ÇÒ ÓÐÐ§µÄ À¨ºÅ×éºÏ¡£
-// ÊäÈë£ºn = 3
-// Êä³ö£º["((()))","(()())","(())()","()(())","()()()"]
+// 22. æ‹¬å·ç”Ÿæˆ
+// æ•°å­— n ä»£è¡¨ç”Ÿæˆæ‹¬å·çš„å¯¹æ•°ï¼Œè¯·ä½ è®¾è®¡ä¸€ä¸ªå‡½æ•°ï¼Œç”¨äºŽèƒ½å¤Ÿç”Ÿæˆæ‰€æœ‰å¯èƒ½çš„å¹¶ä¸” æœ‰æ•ˆçš„ æ‹¬å·ç»„åˆã€‚
+// è¾“å…¥ï¼šn = 3
+// è¾“å‡ºï¼š["((()))","(()())","(())()","()(())","()()()"]
     vector<string> generateParenthesis(int n) {
         vector<string> ans;
         fix(ans,"(",1,0,n);

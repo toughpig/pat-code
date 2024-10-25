@@ -2,8 +2,8 @@
 #include<string>
 #include<iostream>
 using namespace std;
-string shu[10]={"Áã","Ò¼","·¡","Èş", "ËÁ","Îé","Â½","Æâ","°Æ","¾Á"};
-string wei[5]={"Ê°","°Û","Çª","Èf","ÒÚ"};
+string shu[10]={"é›¶","å£¹","è´°","å", "è‚†","ä¼","é™†","æŸ’","æŒ","ç–"};
+string wei[5]={"æ‹¾","ä½°","ä»Ÿ","è¬","äº¿"};
 bool flagling=false;
 bool flagwei=true;
 

@@ -15,7 +15,7 @@ int main(){
 ////--------------------------------------------------
 ////--algorithm
 	/*
-	do--while(next_permutation(a.begin(),a.end() ) );到达全排列最后一个后返回false 
+	do--while(next_permutation(a.begin(),a.end() ) );鍒拌揪鍏ㄦ帓鍒楁渶鍚庝竴涓悗杩斿洖false 
 	
 	
 	*/
