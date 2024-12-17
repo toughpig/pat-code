@@ -7,7 +7,7 @@ using namespace std;
 const int maxn=26*26*26*10;
 vector<int> course[maxn];
 
-int hash(char ch[]){
+int myhash(char ch[]){
 	int id=0;
 	for(int i=0;i<3;i++){
 		id=id*26+ch[i]-'A';
@@ -25,7 +25,7 @@ int main(){
 		while(num--){
 			char ch[5];
 			scanf("%s",ch);
-			int s=hash(ch);
+			int s=myhash(ch);
 			course[s].push_back(index);
 		}
 	}
@@ -33,7 +33,7 @@ int main(){
 		char name[5];
 		scanf("%s",name);
 		printf("%s",name);
-		int temp=hash(name);
+		int temp=myhash(name);
 		printf(" %d",course[temp].size());
 		sort(course[temp].begin(),course[temp].end());
 		for(int i=0;i<course[temp].size();i++)

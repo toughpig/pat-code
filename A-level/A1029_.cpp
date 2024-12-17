@@ -28,8 +28,8 @@ int main(){
 			}
 		}
 		if(cnt==cnt) continue;
-		else if(){
-			
+		else if(false){
+			;
 		}
 	}
 	return 0;

@@ -9,7 +9,7 @@ int main(){
 	scanf("%ld",&n1);
 	long temp;
 	for(int i=1;i<=n1;i++){
-		scanf("%ld",);
+		scanf("%ld",&temp);
 	}
 	scanf("%d",&n2);
 	for(int i=1;i<=n2;i++){
