@@ -15,5 +15,16 @@ int main(){
 		}
 	}
 	printf("%d",cnt);
+
+	switch (0)
+{
+	if (true) printf("sad\n");
+	case 0:
+		if (false);else
+case 1:
+	break;
+		
+}
+
 	return 0;
 }
